@@ -8,3 +8,9 @@ How to Run
 1. Install Python (3.x)
 2. Open terminal in project folder
 3. Run:
+
+or
+
+1. install .exe files
+2. Run .exe
+3. enjoy
