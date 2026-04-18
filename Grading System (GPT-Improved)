@@ -1,0 +1,71 @@
+def get_valid_score(prompt, max_score):
+    while True:
+        try:
+            score = float(input(prompt))
+            if 0 <= score <= max_score:
+                return score
+            print(f"Error: Enter a value between 0 and {max_score}")
+        except ValueError:
+            print("Error: Please enter a number only")
+
+
+def get_multiple_scores(category, count, max_score):
+    total = 0
+    for i in range(1, count + 1):
+        total += get_valid_score(f"{category} {i} /{max_score}: ", max_score)
+    return total, count
+
+
+def calculate_term(term_name):
+    print(f"\n--- {term_name.upper()} ---")
+
+    quiz_count = int(input("How many quizzes? "))
+    act_count = int(input("How many activities? "))
+    rec_count = int(input("How many recitations? "))
+
+    quiz_max = float(input("Max score for quizzes: "))
+    act_max = float(input("Max score for activities: "))
+    rec_max = float(input("Max score for recitation: "))
+    exam_max = float(input("Max score for exam: "))
+
+    quiz_total, quiz_n = get_multiple_scores("Quiz", quiz_count, quiz_max)
+    act_total, act_n = get_multiple_scores("Activity", act_count, act_max)
+    rec_total, rec_n = get_multiple_scores("Recitation", rec_count, rec_max)
+
+    exam = get_valid_score(f"Exam /{exam_max}: ", exam_max)
+
+    # convert to averages first
+    quiz_avg = quiz_total / quiz_n if quiz_n else 0
+    act_avg = act_total / act_n if act_n else 0
+    rec_avg = rec_total / rec_n if rec_n else 0
+
+    # convert to percentage
+    quiz_pct = (quiz_avg / quiz_max) * 100
+    act_pct = (act_avg / act_max) * 100
+    rec_pct = (rec_avg / rec_max) * 100
+    exam_pct = (exam / exam_max) * 100
+
+    # normalized weights (must = 1.0)
+    final_grade = round(
+        quiz_pct * 0.3 +
+        act_pct * 0.3 +
+        rec_pct * 0.1 +
+        exam_pct * 0.3
+    )
+
+    print(f"\nFinal Grade ({term_name}): {final_grade}\n")
+
+
+while True:
+    grade = input("What are you grading for? (prelims, midterms, finals, exit): ").lower()
+
+    if grade in ["prelims", "midterms", "finals"]:
+        calculate_term(grade)
+
+    elif grade == "exit":
+        print("Thanks for using Mar7iiny's grading system!.")
+        print("Exiting System...")
+        break
+
+    else:
+        print("Invalid input. Try again.\n")
