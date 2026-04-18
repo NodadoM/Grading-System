@@ -1,0 +1,118 @@
+    #This is for grading
+
+grade = input("What are you grading for? (prelims, midterms, finals): ").lower()
+
+while True:
+    if grade == "prelims":
+        quiz1 =float(input("Grade for quiz 1 /30: "))
+        if quiz1 >30:
+            print("Error, you graded too much")
+            continue
+        quiz1 = (quiz1 / 30) * 100
+        quiz2 =float(input("Grade for quiz 2 /40: "))
+        if quiz2 >40:
+            print("Error, you graded too much")
+            continue
+        quiz2 = (quiz2 / 40) * 100
+        activity1 =float(input("Grade for activity 1 /30: "))
+        if activity1 >30:
+            print("Error, you graded too much")
+            continue
+        activity1 = (activity1 / 30) * 100
+        activity2 =float(input("Grade for activity 2 /20: "))
+        if activity2 >20:
+            print("Error, you graded too much")
+            continue
+        activity2 = (activity2 / 20) * 100
+        recitation=float(input("Grade for recitation /10: "))
+        if recitation >10:
+            print("Error, you graded too much")
+            continue
+        recitation = (recitation / 10) * 100
+        exam =float(input("Grade for prelim exam  /100: "))
+        if exam >100:
+            print("Error, you graded too much")
+            continue
+        prelim50 = round(quiz1+quiz2+activity1+activity2)/4
+        prelim = round((prelim50*.5)+(recitation*.1)+(exam*.4))
+        print(prelim)
+        stop = input("do you want to stop? (y/n): ")
+        if stop == "y":
+            break
+
+    elif grade == "midterms":
+        quiz1 =float(input("Grade for quiz 1 /30: "))
+        if quiz1 >30:
+            print("Error, you graded too much")
+            continue
+        quiz1 = (quiz1 / 30) * 100
+        quiz2 =float(input("Grade for quiz 2 /40: "))
+        if quiz2 >40:
+            print("Error, you graded too much")
+            continue
+        quiz2 = (quiz2 / 40) * 100
+        activity1 =float(input("Grade for activity 1 /30: "))
+        if activity1 >30:
+            print("Error, you graded too much")
+            continue
+        activity1 = (activity1 / 30) * 100
+        activity2 =float(input("Grade for activity 2 /20: "))
+        if activity2 >20:
+            print("Error, you graded too much")
+            continue
+        activity2 = (activity2 / 20) * 100
+        recitation=float(input("Grade for recitation /10: "))
+        if recitation >10:
+            print("Error, you graded too much")
+            continue
+        recitation = (recitation / 10) * 100
+        exam =float(input("Grade for midterms exam  /100: "))
+        if exam >100:
+            print("Error, you graded too much")
+            continue
+        midterms50 = round(quiz1+quiz2+activity1+activity2)/4
+        midterms = round((midterms50*.5)+(recitation*.1)+(exam*.4))
+        print(midterms)
+        stop = input("do you want to stop? (y/n): ")
+        if stop == "y":
+            break
+
+    elif grade == "finals":
+        quiz1 =float(input("Grade for quiz 1 /30: "))
+        if quiz1 >30:
+            print("Error, you graded too much")
+            continue
+        quiz1 = (quiz1 / 30) * 100
+        quiz2 =float(input("Grade for quiz 2 /40: "))
+        if quiz2 >40:
+            print("Error, you graded too much")
+            continue
+        quiz2 = (quiz2 / 40) * 100
+        activity1 =float(input("Grade for activity 1 /30: "))
+        if activity1 >30:
+            print("Error, you graded too much")
+            continue
+        activity1 = (activity1 / 30) * 100
+        activity2 =float(input("Grade for activity 2 /20: "))
+        if activity2 >20:
+            print("Error, you graded too much")
+            continue
+        activity2 = (activity2 / 20) * 100
+        recitation=float(input("Grade for recitation /10: "))
+        if recitation >10:
+            print("Error, you graded too much")
+            continue
+        recitation = (recitation / 10) * 100
+        exam =float(input("Grade for finals exam  /100: "))
+        if exam >100:
+            print("Error, you graded too much")
+            continue
+        finals50 = round(quiz1+quiz2+activity1+activity2)/4
+        finals = round((finals50*.5)+(recitation*.1)+(exam*.4))
+        print(finals)
+        stop = input("do you want to stop? (y/n): ")
+        if stop == "y":
+            break
+    else:
+        print("you did not input a valid quarter")
+        break
