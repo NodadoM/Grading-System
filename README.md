@@ -14,3 +14,8 @@ or
 1. install .exe files
 2. Run .exe
 3. enjoy
+
+quizzes 30%
+activities 30%
+recitations 10%
+exams 30%
