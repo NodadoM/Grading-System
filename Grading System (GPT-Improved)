@@ -63,7 +63,7 @@ while True:
         calculate_term(grade)
 
     elif grade == "exit":
-        print("Thanks for using Mar7iiny's grading system!.")
+        print("Thanks for using Martin's grading system!.")
         print("Exiting System...")
         break
 
