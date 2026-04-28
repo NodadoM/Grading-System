@@ -9,11 +9,47 @@ def get_valid_score(prompt, max_score):
             print("Error: Please enter a number only")
 
 
-def get_multiple_scores(category, count, max_score):
-    total = 0
+def get_multiple_scores(category, count):
+    total_score = 0
+    total_max = 0
+
     for i in range(1, count + 1):
-        total += get_valid_score(f"{category} {i} /{max_score}: ", max_score)
-    return total, count
+        while True:
+            try:
+                max_score = float(input(f"{category} {i} max score: "))
+                if max_score > 0:
+                    break
+                print("Max score must be greater than 0")
+            except ValueError:
+                print("Enter a valid number")
+
+        score = get_valid_score(f"{category} {i} score /{max_score}: ", max_score)
+
+        total_score += score
+        total_max += max_score
+
+    return total_score, total_max
+
+
+def get_weights():
+    while True:
+        try:
+            print("\nEnter weights (must total 1.0 or 100)")
+            quiz_w = float(input("Quiz weight: "))
+            act_w = float(input("Activity weight: "))
+            rec_w = float(input("Recitation weight: "))
+            exam_w = float(input("Exam weight: "))
+
+            total = quiz_w + act_w + rec_w + exam_w
+
+            if total == 1.0:
+                return quiz_w, act_w, rec_w, exam_w
+            elif total == 100:
+                return quiz_w/100, act_w/100, rec_w/100, exam_w/100
+            else:
+                print("Error: Weights must total 1.0 or 100\n")
+        except ValueError:
+            print("Error: Enter numbers only\n")
 
 
 def calculate_term(term_name):
@@ -23,39 +59,36 @@ def calculate_term(term_name):
     act_count = int(input("How many activities? "))
     rec_count = int(input("How many recitations? "))
 
-    quiz_max = float(input("Max score for quizzes: "))
-    act_max = float(input("Max score for activities: "))
-    rec_max = float(input("Max score for recitation: "))
     exam_max = float(input("Max score for exam: "))
 
-    quiz_total, quiz_n = get_multiple_scores("Quiz", quiz_count, quiz_max)
-    act_total, act_n = get_multiple_scores("Activity", act_count, act_max)
-    rec_total, rec_n = get_multiple_scores("Recitation", rec_count, rec_max)
+    # get weights
+    quiz_w, act_w, rec_w, exam_w = get_weights()
+
+    # get scores
+    quiz_total, quiz_max_total = get_multiple_scores("Quiz", quiz_count)
+    act_total, act_max_total = get_multiple_scores("Activity", act_count)
+    rec_total, rec_max_total = get_multiple_scores("Recitation", rec_count)
 
     exam = get_valid_score(f"Exam /{exam_max}: ", exam_max)
 
-    # convert to averages first
-    quiz_avg = quiz_total / quiz_n if quiz_n else 0
-    act_avg = act_total / act_n if act_n else 0
-    rec_avg = rec_total / rec_n if rec_n else 0
-
-    # convert to percentage
-    quiz_pct = (quiz_avg / quiz_max) * 100
-    act_pct = (act_avg / act_max) * 100
-    rec_pct = (rec_avg / rec_max) * 100
+    # percentages
+    quiz_pct = (quiz_total / quiz_max_total) * 100 if quiz_max_total else 0
+    act_pct = (act_total / act_max_total) * 100 if act_max_total else 0
+    rec_pct = (rec_total / rec_max_total) * 100 if rec_max_total else 0
     exam_pct = (exam / exam_max) * 100
 
-    # normalized weights (must = 1.0)
+    # final grade
     final_grade = round(
-        quiz_pct * 0.3 +
-        act_pct * 0.3 +
-        rec_pct * 0.1 +
-        exam_pct * 0.3
+        quiz_pct * quiz_w +
+        act_pct * act_w +
+        rec_pct * rec_w +
+        exam_pct * exam_w
     )
 
     print(f"\nFinal Grade ({term_name}): {final_grade}\n")
 
 
+# main loop
 while True:
     grade = input("What are you grading for? (prelims, midterms, finals, exit): ").lower()
 
@@ -63,7 +96,7 @@ while True:
         calculate_term(grade)
 
     elif grade == "exit":
-        print("Thanks for using Martin's grading system!.")
+        print("Thanks for using Martin's grading system!")
         print("Exiting System...")
         break
 
